@@ -18,5 +18,5 @@ export async function runCommand(
   if (!handler) {
     throw new Error(`Unknown command: ${cmdName}`);
   }
-  handler(cmdName, ...args);
+  await handler(cmdName, ...args);
 }
