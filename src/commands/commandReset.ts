@@ -1,6 +1,6 @@
-import { resetUsers } from "../lib/db/queries/users";
+import { deleteAllUsers } from "../lib/db/queries/users";
 
-export async function handlerReset(cmdName: string) {
-  await resetUsers();
+export async function handlerReset(_: string) {
+  await deleteAllUsers();
   console.log("Database reset successfully");
 }
