@@ -14,3 +14,7 @@ export async function getUserByName(name: string) {
     .where(eq(users.name, name));
   return result;
 }
+
+export async function resetUsers() {
+  await db.delete(users);
+}

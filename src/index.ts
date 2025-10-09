@@ -5,12 +5,14 @@ import {
 } from "./commands/commands.js";
 import { handlerLogin } from "./commands/commandLogin.js";
 import { handlerRegister } from "./commands/commandRegister.js";
+import { handlerReset } from "./commands/commandReset.js";
 
 async function main() {
   const registry: CommandsRegistry = {};
 
   registerCommand(registry, "login", handlerLogin);
   registerCommand(registry, "register", handlerRegister);
+  registerCommand(registry, "reset", handlerReset);
 
   const args = process.argv.slice(2);
 
@@ -31,8 +33,8 @@ async function main() {
     }
     process.exit(1);
   }
-  
-  process.exit(0)
+
+  process.exit(0);
 }
 
 main();

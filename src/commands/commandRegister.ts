@@ -1,10 +1,7 @@
 import { createUser, getUserByName } from "../lib/db/queries/users.js";
 import { setUser } from "../config.js";
 
-export async function handlerRegister(
-  cmdName: string,
-  ...args: string[]
-): Promise<void> {
+export async function handlerRegister(cmdName: string, ...args: string[]) {
   const name = args[0];
   if (!name) throw new Error(`A name is required: ${cmdName} <name>`);
 

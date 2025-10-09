@@ -1,10 +1,7 @@
 import { setUser } from "../config.js";
 import { getUserByName } from "../lib/db/queries/users.js";
 
-export async function handlerLogin(
-  cmdName: string,
-  ...args: string[]
-): Promise<void> {
+export async function handlerLogin(cmdName: string, ...args: string[]) {
   const name = args[0];
 
   if (!name) {
@@ -13,7 +10,9 @@ export async function handlerLogin(
 
   const user = await getUserByName(name);
   if (!user) {
-    throw new Error(`User "${name}" does not exist. Use the “register <name>” command first`);
+    throw new Error(
+      `User "${name}" does not exist. Use the “register <name>” command first`,
+    );
   }
 
   setUser(name);
