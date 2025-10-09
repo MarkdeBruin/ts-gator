@@ -5,7 +5,7 @@ import {
 } from "./commands/commands.js";
 import { handlerLogin } from "./commands/commandLogin.js";
 
-function main() {
+async function main() {
   const registry: CommandsRegistry = {};
 
   registerCommand(registry, "login", handlerLogin);
@@ -20,7 +20,7 @@ function main() {
   const [cmdName, ...cmdArgs] = args;
 
   try {
-    runCommand(registry, cmdName, ...cmdArgs);
+    await runCommand(registry, cmdName, ...cmdArgs);
   } catch (err) {
     if (err instanceof Error) {
       console.error(`Error running command ${cmdName}: ${err.message}`);
@@ -29,6 +29,8 @@ function main() {
     }
     process.exit(1);
   }
+  
+  process.exit(0)
 }
 
 main();

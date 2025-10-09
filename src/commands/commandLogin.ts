@@ -1,6 +1,6 @@
 import { setUser } from "../config.js";
 
-export function handlerLogin(cmdName: string, ...args: string[]): void {
+export async function handlerLogin(cmdName: string, ...args: string[]): Promise<void> {
   const username = args[0];
   
   if (!username) {
