@@ -1,5 +1,5 @@
 import { db } from "..";
-import { feeds, users } from "../schema.js";
+import { feeds } from "../schema.js";
 
 export async function createFeed(name: string, url: string, userId: string) {
   const [result] = await db
