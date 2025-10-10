@@ -2,6 +2,7 @@ import { getUserById, getUserByName } from "../lib/db/queries/users";
 import { readConfig } from "../config";
 import type { Feed, User } from "../lib/db/schema";
 import { createFeed, getFeeds } from "../lib/db/queries/feed";
+import { createFeedFollow } from "src/lib/db/queries/feedFollows";
 
 export async function handlerGetFeeds(_: string) {
   const feeds = await getFeeds();
@@ -39,6 +40,9 @@ export async function handlerAddFeed(cmdName: string, ...args: string[]) {
 
   console.log(`Feed created:`);
   printFeed(feed, user);
+
+  const feedFollow = await createFeedFollow(user.id, feed.id);
+  console.log(`\n${user.name} is now following: ${feed.name}`);
 }
 
 function printFeed(feed: Feed, user: User) {
