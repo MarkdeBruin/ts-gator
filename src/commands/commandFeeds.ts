@@ -1,5 +1,4 @@
-import { getUserById, getUserByName } from "../lib/db/queries/users";
-import { readConfig } from "../config";
+import { getUserById } from "../lib/db/queries/users";
 import type { Feed, User } from "../lib/db/schema";
 import { createFeed, getFeeds } from "../lib/db/queries/feed";
 import { createFeedFollow } from "src/lib/db/queries/feedFollows";
@@ -21,19 +20,16 @@ export async function handlerGetFeeds(_: string) {
   }
 }
 
-export async function handlerAddFeed(cmdName: string, ...args: string[]) {
+export async function handlerAddFeed(
+  cmdName: string,
+  user: User,
+  ...args: string[]
+) {
   const feedName = args[0];
   const feedUrl = args[1];
 
   if (!feedName || !feedUrl) {
     throw new Error(`A name and url are required: ${cmdName} <name> <url>`);
-  }
-
-  const currentUserName = readConfig().currentUserName;
-  const user: User = await getUserByName(currentUserName);
-
-  if (!user) {
-    throw new Error(`No user logged in. Use the “login <name>” command first`);
   }
 
   const feed: Feed = await createFeed(feedName, feedUrl, user.id);

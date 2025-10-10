@@ -1,21 +1,19 @@
-import { readConfig } from "../config";
-import { getUserByName } from "../lib/db/queries/users";
 import { getFeedByUrl } from "../lib/db/queries/feed";
-import { createFeedFollow, getFeedFollowsForUser } from "../lib/db/queries/feedFollows";
+import {
+  createFeedFollow,
+  getFeedFollowsForUser,
+} from "../lib/db/queries/feedFollows";
 import { User } from "src/lib/db/schema";
 
-export async function handlerFollow(cmdName: string, ...args: string[]) {
+export async function handlerFollow(
+  cmdName: string,
+  user: User,
+  ...args: string[]
+) {
   const feedUrl = args[0];
 
   if (!feedUrl) {
     throw new Error(`A feed URL is required: ${cmdName} <url>`);
-  }
-
-  const currentUserName = readConfig().currentUserName;
-  const user = await getUserByName(currentUserName);
-
-  if (!user) {
-    throw new Error(`No user logged in. Use the "login <name>" command first`);
   }
 
   const feed = await getFeedByUrl(feedUrl);
@@ -31,14 +29,7 @@ export async function handlerFollow(cmdName: string, ...args: string[]) {
   );
 }
 
-export async function handlerFollowing(cmdName: string) {
-  const currentUserName = readConfig().currentUserName;
-  const user: User | undefined = await getUserByName(currentUserName);
-
-  if (!user) {
-    throw new Error(`No user logged in. Use the "login <name>" command first`);
-  }
-
+export async function handlerFollowing(cmdName: string, user: User) {
   const follows = await getFeedFollowsForUser(user.id);
 
   if (follows.length === 0) {
