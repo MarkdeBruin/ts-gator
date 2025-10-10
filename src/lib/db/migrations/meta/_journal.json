@@ -8,6 +8,13 @@
       "when": 1760005359456,
       "tag": "0000_sturdy_invaders",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1760086394293,
+      "tag": "0001_loud_legion",
+      "breakpoints": true
     }
   ]
 }
