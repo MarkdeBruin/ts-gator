@@ -1,6 +1,6 @@
 import { db } from "..";
 import { feedFollows, feeds, users } from "../schema.js";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
 export async function createFeedFollow(userId: string, feedId: string) {
   const [newFeedFollow] = await db
@@ -43,4 +43,20 @@ export async function getFeedFollowsForUser(userId: string) {
     .where(eq(feedFollows.userId, userId));
 
   return result;
+}
+
+export async function deleteFeedFollowByUserAndUrl(
+  userId: string,
+  feedUrl: string,
+) {
+  const [feed] = await db.select().from(feeds).where(eq(feeds.url, feedUrl));
+  if (!feed) {
+    throw new Error(`Feed with URL "${feedUrl}" not found`);
+  }
+
+  await db
+    .delete(feedFollows)
+    .where(
+      and(eq(feedFollows.userId, userId), eq(feedFollows.feedId, feed.id)),
+    );
 }

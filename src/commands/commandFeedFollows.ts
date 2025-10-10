@@ -1,9 +1,10 @@
 import { getFeedByUrl } from "../lib/db/queries/feed";
 import {
   createFeedFollow,
+  deleteFeedFollowByUserAndUrl,
   getFeedFollowsForUser,
 } from "../lib/db/queries/feedFollows";
-import { User } from "src/lib/db/schema";
+import { User } from "../lib/db/schema";
 
 export async function handlerFollow(
   cmdName: string,
@@ -27,6 +28,22 @@ export async function handlerFollow(
   console.log(
     `User ${feedFollow.userName} is now following feed "${feedFollow.feedName}"`,
   );
+}
+
+export async function handlerUnfollow(
+  cmdName: string,
+  user: User,
+  ...args: string[]
+) {
+  const feedUrl = args[0];
+  
+  if (!feedUrl) {
+    throw new Error(`A feed URL is required: ${cmdName} <url>`);
+  }
+
+  await deleteFeedFollowByUserAndUrl(user.id, feedUrl);
+
+  console.log(`${user.name} unfollowed feed with URL: ${feedUrl}`);
 }
 
 export async function handlerFollowing(cmdName: string, user: User) {
