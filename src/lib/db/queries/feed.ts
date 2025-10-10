@@ -1,6 +1,5 @@
 import { db } from "..";
 import { feeds, users } from "../schema.js";
-import { eq } from "drizzle-orm";
 
 export async function createFeed(name: string, url: string, userId: string) {
   const [result] = await db
