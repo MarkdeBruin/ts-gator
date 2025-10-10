@@ -8,7 +8,7 @@ import { handlerRegister } from "./commands/commandRegister.js";
 import { handlerReset } from "./commands/commandReset.js";
 import { handlerUsers } from "./commands/commandUsers.js";
 import { handlerAgg } from "./commands/commandAgg.js";
-import { handlerAddFeed } from "./commands/commandFeeds.js";
+import { handlerAddFeed, handlerGetFeeds } from "./commands/commandFeeds.js";
 
 async function main() {
   const registry: CommandsRegistry = {};
@@ -19,6 +19,7 @@ async function main() {
   registerCommand(registry, "users", handlerUsers);
   registerCommand(registry, "agg", handlerAgg);
   registerCommand(registry, "addfeed", handlerAddFeed);
+  registerCommand(registry, "feeds", handlerGetFeeds);
 
   const args = process.argv.slice(2);
 

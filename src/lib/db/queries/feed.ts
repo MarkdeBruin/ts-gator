@@ -15,16 +15,7 @@ export async function createFeed(name: string, url: string, userId: string) {
   return result;
 }
 
-export async function getAllFeedsWithUsers() {
-  const result = await db
-    .select({
-      feedId: feeds.id,
-      feedName: feeds.name,
-      feedUrl: feeds.url,
-      userName: users.name,
-    })
-    .from(feeds)
-    .leftJoin(users, eq(feeds.userId, users.id));
-  
+export async function getFeeds() {
+  const result = await db.select().from(feeds);
   return result;
 }
