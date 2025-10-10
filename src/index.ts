@@ -9,7 +9,7 @@ import { handlerReset } from "./commands/commandReset.js";
 import { handlerUsers } from "./commands/commandUsers.js";
 import { handlerAgg } from "./commands/commandAgg.js";
 import { handlerAddFeed, handlerGetFeeds } from "./commands/commandFeeds.js";
-import { handlerFollow } from "./commands/commandFollow.js";
+import { handlerFollow } from "./commands/commandFeedFollows.js";
 
 async function main() {
   const registry: CommandsRegistry = {};
